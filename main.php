@@ -24,7 +24,19 @@ echo("sdf\n");
 timeStampedEcho("sdfasdf\n");
 $url = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
 timeStampedEcho($url."\n");
-loadStartPage($url,'.\\datas\\1.html');
+$ch = curl_init ();
+curl_setopt ( $ch, CURLOPT_COOKIESESSION, true );
+curl_setopt ( $ch, CURLOPT_HEADER, true );
+curl_setopt ( $ch, CURLINFO_HEADER_OUT, true );
+curl_setopt ( $ch, CURLOPT_HTTPGET, true );
+curl_setopt ( $ch, CURLOPT_VERBOSE, true );
+
+$fperr = @fopen ( '.\\datas\\err.html', "w" );
+curl_setopt ( $ch, CURLOPT_STDERR,  $fperr);
+curl_setopt ( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240' );
+
+
+loadStartPage($url,'.\\datas\\1.html', $ch);
 
 $url1 = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_10&pageNo=';
 $url2= '&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
@@ -32,6 +44,8 @@ for ($i=2;$i<=100;$i++){
     sleep (5);
     $url=$url1.$i.$url2;
     timeStampedEcho($url."\n");
-    loadStartPage($url,'.\\datas\\'.$i.'.html');
+    loadStartPage($url,'.\\datas\\'.$i.'.html', $ch);
 }
+
+fclose ( $fperr );
 
