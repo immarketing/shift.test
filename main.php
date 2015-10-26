@@ -13,6 +13,7 @@
  */
 
 require_once ("libs/funcs.php");
+require_once ("libs/dbfuncs.php");
 date_default_timezone_set ("Europe/Moscow");
 /**
  * Created by PhpStorm.
@@ -21,6 +22,7 @@ date_default_timezone_set ("Europe/Moscow");
  * Time: 20:29
  */
 echo("sdf\n");
+connectDB();
 timeStampedEcho("sdfasdf\n");
 $url = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
 timeStampedEcho($url."\n");
