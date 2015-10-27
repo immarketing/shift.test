@@ -13,6 +13,8 @@ function connectDB(){
     }
     echo $mysqli->host_info . "\n";
 
+    return $mysqli;
+
     $mysqli = new mysqli("127.0.0.1", "root", "", "db_shift", 3306);
     if ($mysqli->connect_errno) {
         echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
