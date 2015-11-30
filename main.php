@@ -36,26 +36,16 @@ if (is_null($connection)){
 
 $zgr = new ZakupkiGovRu($connection);
 
-timeStampedEcho("sdfasdf\n");
+timeStampedEcho("Starting\n");
 $url = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
-timeStampedEcho($url."\n");
-$ch = curl_init ();
-curl_setopt ( $ch, CURLOPT_COOKIESESSION, true );
-curl_setopt ( $ch, CURLOPT_HEADER, true );
-curl_setopt ( $ch, CURLINFO_HEADER_OUT, true );
-curl_setopt ( $ch, CURLOPT_HTTPGET, true );
-curl_setopt ( $ch, CURLOPT_VERBOSE, true );
+//timeStampedEcho($url."\n");
+$ch = create_curl ();
 
-curl_setopt ( $ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5 );
-curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
-//curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
-curl_setopt ( $ch, CURLOPT_PROXY, '127.0.0.1' );
+// http://www.zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=0138100005315000120
 
-$fperr = @fopen ( '.\\datas\\err.html', "w" );
-curl_setopt ( $ch, CURLOPT_STDERR,  $fperr);
-curl_setopt ( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240' );
+loadStartPage('http://www.zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=0138100005315000120','.\\datas\\__.html', $ch);
 
-
+exit;
 loadStartPage($url,'.\\datas\\0.html', $ch);
 
 $url1 = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
