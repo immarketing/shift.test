@@ -31,16 +31,31 @@ class ZakupkiGovRu
     private static $STARTPAGE = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
     private $dbConnection = null;
     private $browser = null;
-    private $IsSaveToDisk = false;
 
+    private $IsSaveToDisk = false;
     public function setIsSaveToDisk($IsSaveToDisk){
         $this->IsSaveToDisk = $IsSaveToDisk;
     }
-
     public function getIsSaveToDisk (){
         return $this->IsSaveToDisk;
     }
 
+
+    private $IsCollectTenderTd = false;
+    public function setIsCollectTenderTd ($IsCollectTenderTd){
+        $this->IsCollectTenderTd = $IsCollectTenderTd;
+    }
+    public function getIsCollectTenderTd (){
+        return $this->IsCollectTenderTd;
+    }
+
+    private $IsStoreRequests = false;
+    public function setIsStoreRequests ($IsStoreRequests){
+        $this->IsStoreRequests = $IsStoreRequests;
+    }
+    public function getIsStoreRequests (){
+        return $this->IsStoreRequests;
+    }
     /**
      *
      */
@@ -50,11 +65,40 @@ class ZakupkiGovRu
         $this->dbConnection = $dbc;
     }
 
-    private function workOutPage($pageText){
+    /**
+     * @param $pageText
+     * @param $pageTextCRLFLess
+     * @param $reqURL
+     */
+    private function storeRequest($pageText,$pageTextCRLFLess,$reqURL){
+        /* подготавливаемый запрос, первая стадия: подготовка */
+        $stmt = null;
+        if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_requests	(URL, PAGETEXT, PAGETEXTSRLFLESS)	VALUES (?, ?, ?)"))) {
+            timeStampedEcho("Не удалось подготовить запрос: (" . $this->dbConnection->errno . ") " . $this->dbConnection->error) ;
+            return null;
+        }
+        if (!$stmt->bind_param("sss", $reqURL, $pageText,$pageTextCRLFLess)) {
+            echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!($rslt = $stmt->execute())) {
+            echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        $stmt->close();
+    }
+
+    /**
+     * @param $pageText
+     * @return null
+     */
+    private function workOutPage($pageText,$pageTextCRLFLess,$reqURL){
         $rst = $pageText;
         $fndRst = preg_match_all ('(/epz?.*common?.*[0-9]{10,14})',$rst,$fnd);
         //$fndRst = preg_match_all ('(/epz/order/notice/zk44/view/common-info.html.regNumber.[0-9]{10,14})',$rst,$fnd);
         ///epz/order/notice/zk44/view/common-info.html?regNumber=0138100002715000198
+
+        if ($this->getIsStoreRequests()) {
+            $this->storeRequest($pageText,$pageTextCRLFLess,$reqURL);
+        }
         return null;
 
     }
@@ -67,9 +111,9 @@ class ZakupkiGovRu
     {
         $this->browser = create_curl ();
 
-        $startPageText = $this->loadStartPage();
+        $startPageText = $this->loadPage(self::$STARTPAGE,'.\\datas\\zakupki.gov\\0.html');
 
-        $this->workOutPage ($startPageText[0]);
+        $this->workOutPage ($startPageText[0],$startPageText[1],self::$STARTPAGE);
 
         $url1 = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
         $url2 = '&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
@@ -78,6 +122,7 @@ class ZakupkiGovRu
             $url = $url1 . $i . $url2;
             timeStampedEcho($url . "\n");
             $pageText = $this->loadPage ($url, '.\\datas\\zakupki.gov\\' . $i . '.html');
+            $this->workOutPage ($pageText[0],$pageText[1],$url);
         }
 
 
@@ -124,7 +169,7 @@ class ZakupkiGovRu
     /**
      * Функция загружает начальную страницу
      */
-    private function loadStartPage()
+    private function loadStartPage1()
     {
         return $this->loadPage(self::$STARTPAGE,'.\\datas\\zakupki.gov\\0.html');
 
