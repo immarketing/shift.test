@@ -43,10 +43,17 @@ function loadStartPage($fromURL, $toPage, $ch) {
         if ($fpout) {
             //$ch = curl_init ();
             curl_setopt ( $ch, CURLOPT_URL, $url );
+
             curl_setopt ( $ch, CURLOPT_FILE, $fpout );
+            curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+
             //curl_setopt ( $ch, CURLOPT_HEADER, 0 );
 
-            curl_exec ( $ch );
+            $rst = curl_exec ( $ch );
+
+            // preg_match_all
+
+            $fndRst = preg_match_all ('(/epz.*common.*[0-9]{10,14})',$rst,$fnd);
             fclose ( $fpout );
             return true;
         }
