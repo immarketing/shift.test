@@ -121,6 +121,57 @@ class ZakupkiGovRu
         $stmt->close();
     }
 
+
+    /*
+     * INSERT INTO zakupki_gov_ru_descripttenders
+	(TENDERID, TENDERURL)
+	VALUES ('', '')
+     */
+    private function storeDescriptTenderTd($tid,$turl)
+    {
+        /* подготавливаемый запрос, первая стадия: подготовка */
+        $stmt = null;
+        if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_descripttenders	(TENDERID, TENDERURL)	VALUES (?, ?)"))) {
+            timeStampedEcho("Не удалось подготовить запрос: (" . $this->dbConnection->errno . ") " . $this->dbConnection->error);
+            return null;
+        }
+        if (!$stmt->bind_param("ss", $tid,$turl)) {
+            echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!($rslt = $stmt->execute())) {
+            echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        $stmt->close();
+    }
+
+    private function handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL){
+        $fndRst = preg_match_all('/"descriptTenderTd".*?<\/td>/s', $pageText, $matches);
+        if ($fndRst) foreach ($matches[0] as $oneString) {
+            $tenderTd = array('', '');
+            unset ($tenderTd);
+            if ($fndRstString = preg_match_all('/href="(.*?regNumber.*?)"/', $oneString, $matchesOneString)) {
+                //timeStampedEcho($matchesOneString[1][0] . "\t");
+                $tenderTd[0] = $matchesOneString[1][0];
+
+                unset ($matchesOneString);
+                if ($fndRstString = preg_match_all('/=([0-9]+)/', $tenderTd[0], $matchesOneString)) {
+                    //timeStampedEcho($matchesOneString[1][0] . "\t");
+                    $tenderTd[1] = $matchesOneString[1][0];
+                }
+            } else if ($fndRstString = preg_match_all('/href="(.*?noticeId.*?)"/', $oneString, $matchesOneString)) { // noticeId
+                $tenderTd[0] = $matchesOneString[1][0];
+
+                unset ($matchesOneString);
+                if ($fndRstString = preg_match_all('/=([0-9]+)/', $tenderTd[0], $matchesOneString)) {
+                    //timeStampedEcho($matchesOneString[1][0] . "\t");
+                    $tenderTd[1] = $matchesOneString[1][0];
+                }
+            }
+            if ($tenderTd)
+                $this->storeDescriptTenderTd($tenderTd[0],$tenderTd[1]);
+        }
+    }
+
     /**
      * @param $pageText
      * @return null
@@ -132,16 +183,19 @@ class ZakupkiGovRu
         // "tenderTd".*?</td>
         //$fndRst = preg_match_all('tenderTd.*?<\/td>', $pageTextCRLFLess, $fnd);
 
+        // descriptTenderTd
+        $this->handleDescriptTenderTd($pageText,$pageTextCRLFLess,$reqURL);
+
         if ($this->getIsCollectTenderTd()) {
             $fndRst = preg_match_all('/"tenderTd".*?<\/td>/s', $pageText, $matches);
             if ($fndRst) foreach ($matches[0] as $oneString) {
                 $tenderTd = array('', '');
                 if ($fndRstString = preg_match_all('/dt>(.*?)</', $oneString, $matchesOneString)) {
-                    timeStampedEcho($matchesOneString[1][0] . "\t");
+                    //timeStampedEcho($matchesOneString[1][0] . "\t");
                     $tenderTd[0] = $matchesOneString[1][0];
                 }
                 if ($fndRstString = preg_match_all('/dd>(.*?)</', $oneString, $matchesOneString)) {
-                    timeStampedEcho($matchesOneString[1][0] . "\t\n");
+                    //timeStampedEcho($matchesOneString[1][0] . "\t\n");
                     $tenderTd[1] = $matchesOneString[1][0];
                 }
                 $this->storeTendertd($tenderTd[0],$tenderTd[1]);

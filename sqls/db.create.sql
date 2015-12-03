@@ -30,6 +30,20 @@ CREATE TABLE IF NOT EXISTS `zakupki_gov_ru` (
 -- Экспортируемые данные не выделены.
 
 
+-- Дамп структуры для таблица db_shift.zakupki_gov_ru_descripttenders
+DROP TABLE IF EXISTS `zakupki_gov_ru_descripttenders`;
+CREATE TABLE IF NOT EXISTS `zakupki_gov_ru_descripttenders` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `DT` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `TENDERID` text,
+  `TENDERURL` text,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Индекс 2` (`TENDERID`(100))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Экспортируемые данные не выделены.
+
+
 -- Дамп структуры для таблица db_shift.zakupki_gov_ru_requests
 DROP TABLE IF EXISTS `zakupki_gov_ru_requests`;
 CREATE TABLE IF NOT EXISTS `zakupki_gov_ru_requests` (
