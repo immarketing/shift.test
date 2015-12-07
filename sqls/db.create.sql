@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `zakupki_gov_ru_descripttenders` (
   `TENDERID` text,
   `TENDERURL` text,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `Индекс 2` (`TENDERID`(100))
+  KEY `Индекс 2` (`TENDERID`(100))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Экспортируемые данные не выделены.

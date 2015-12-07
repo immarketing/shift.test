@@ -46,7 +46,7 @@ timeStampedEcho("Starting\n");
 //exit;
 
 //loadStartPage($url,'.\\datas\\0.html', $ch);
-$zgr->setIsSaveToDisk(false);
+$zgr->setIsSaveToDisk(true);
 $zgr->setIsCollectTenderTd(false);
 $zgr->setIsStoreRequests(false);
 $zgr->handleAllPages();

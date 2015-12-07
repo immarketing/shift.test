@@ -28,6 +28,9 @@
  */
 class ZakupkiGovRu
 {
+    /**
+     * @var string
+     */
     private static $STARTPAGE = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
     private $dbConnection = null;
     private $browser = null;
@@ -144,6 +147,15 @@ class ZakupkiGovRu
         $stmt->close();
     }
 
+    private function loadTenderDesc ($tid,$turl){
+        //       http://www.zakupki.gov.ru/
+
+        $turl = preg_replace('/^\//', 'http://www.zakupki.gov.ru/', $turl);
+
+        $pageText = $this->loadPage($turl, '.\\datas\\zakupki.gov\\tenders\\' . $tid . '.html');
+
+    }
+
     private function handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL){
         $fndRst = preg_match_all('/"descriptTenderTd".*?<\/td>/s', $pageText, $matches);
         if ($fndRst) foreach ($matches[0] as $oneString) {
@@ -166,9 +178,13 @@ class ZakupkiGovRu
                     //timeStampedEcho($matchesOneString[1][0] . "\t");
                     $tenderTd[1] = $matchesOneString[1][0];
                 }
+            } else {
+                timeStampedEcho("\n!!!! GOT UNHANDLED TENDER DESCRIPTION !!!!\n");
             }
-            if ($tenderTd)
-                $this->storeDescriptTenderTd($tenderTd[0],$tenderTd[1]);
+            if ($tenderTd) {
+                $this->loadTenderDesc($tenderTd[1], $tenderTd[0]);
+                $this->storeDescriptTenderTd($tenderTd[1], $tenderTd[0]);
+            }
         }
     }
 
@@ -238,7 +254,7 @@ class ZakupkiGovRu
         return null;
     }
 
-    protected function loadPage($fromURL, $toFile)
+    protected function loadPage($fromURL, $toFile, $curl_tmout=5)
     {
         //$fromURL = self::$STARTPAGE;
         $ch = $this->browser;
@@ -248,8 +264,17 @@ class ZakupkiGovRu
         $toPage = $toFile;
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $curl_tmout);
+        curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 
         $rst = curl_exec($ch);
+
+        $curl_errno = curl_errno($ch);
+        $curl_error = curl_error($ch);
+        if ($curl_errno > 0) {
+            timeStampedEcho( "cURL Error ($curl_errno): $curl_error\n");
+            return ($this->loadPage($fromURL,$toFile,$curl_tmout*2));
+        }
 
         if ($this->getIsSaveToDisk()) {
             try {
@@ -263,8 +288,6 @@ class ZakupkiGovRu
             }
 
         }
-
-
         //$fndRst = preg_match_all ('(/epz.*common.*[0-9]{10,14})',$rst,$fnd);
         //$fndRst = preg_match_all ('(/epz.*common.*[0-9]{10,14})',$rst,$fnd);
 
@@ -272,9 +295,7 @@ class ZakupkiGovRu
         $rstTrncated = preg_replace('/\n/', ' ', $rstTrncated);
 
         return array($rst, $rstTrncated);
-
     }
-
 
     /**
      * Функция загружает начальную страницу
