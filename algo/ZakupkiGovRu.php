@@ -254,9 +254,13 @@ class ZakupkiGovRu
         return null;
     }
 
-    protected function loadPage($fromURL, $toFile, $curl_tmout=5)
+    protected function loadPage($fromURL, $toFile, $curl_tmout=5, $reinitBrowser=0)
     {
         //$fromURL = self::$STARTPAGE;
+        if ($reinitBrowser){
+            curl_close ($this->browser);
+            $this->browser = curl_init();
+        }
         $ch = $this->browser;
 
         $url = $fromURL;
@@ -274,6 +278,10 @@ class ZakupkiGovRu
         if ($curl_errno > 0) {
             timeStampedEcho( "cURL Error ($curl_errno): $curl_error\n");
             return ($this->loadPage($fromURL,$toFile,$curl_tmout*2));
+        }
+        $lastHttpCode = curl_getinfo ($ch);
+        if ($lastHttpCode['http_code'] != 200) {
+            return ($this->loadPage($fromURL,$toFile,5,1));
         }
 
         if ($this->getIsSaveToDisk()) {
