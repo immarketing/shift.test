@@ -27,8 +27,8 @@ function create_curl() {
     //curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
     //curl_setopt ( $ch, CURLOPT_PROXY, '127.0.0.1' );
 
-    $fperr = @fopen ( '.\\datas\\err.html', "w" );
-    curl_setopt ( $ch, CURLOPT_STDERR,  $fperr);
+    //$fperr = @fopen ( '.\\datas\\err.html', "w" );
+    //curl_setopt ( $ch, CURLOPT_STDERR,  $fperr);
     curl_setopt ( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240' );
 
     return $ch;

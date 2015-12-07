@@ -259,7 +259,7 @@ class ZakupkiGovRu
         //$fromURL = self::$STARTPAGE;
         if ($reinitBrowser){
             curl_close ($this->browser);
-            $this->browser = curl_init();
+            $this->browser = create_curl();
         }
         $ch = $this->browser;
 
