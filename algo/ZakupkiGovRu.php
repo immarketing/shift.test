@@ -87,6 +87,10 @@ class ZakupkiGovRu
         $this->dbConnection = $dbc;
     }
 
+    private function touchConnection(){
+        $this->dbConnection = touchDB($this->dbConnection);
+    }
+
     /**
      * @param $pageText
      * @param $pageTextCRLFLess
@@ -94,6 +98,7 @@ class ZakupkiGovRu
      */
     private function storeRequest($pageText, $pageTextCRLFLess, $reqURL)
     {
+        $this->touchConnection();
         /* подготавливаемый запрос, первая стадия: подготовка */
         $stmt = null;
         if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_requests	(URL, PAGETEXT, PAGETEXTSRLFLESS)	VALUES (?, ?, ?)"))) {
@@ -116,6 +121,7 @@ class ZakupkiGovRu
      */
 
     private function storeTendertd($TenderDT,$TenderDD){
+        $this->touchConnection();
         $stmt = null;
         if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_tendertd	(TenderDT, TenderDD)	VALUES (?, ?)"))) {
             timeStampedEcho("Не удалось подготовить запрос: (" . $this->dbConnection->errno . ") " . $this->dbConnection->error);
@@ -138,6 +144,7 @@ class ZakupkiGovRu
      */
     private function storeDescriptTenderTd($tid,$turl)
     {
+        $this->touchConnection();
         /* подготавливаемый запрос, первая стадия: подготовка */
         $stmt = null;
         if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_descripttenders	(TENDERID, TENDERURL)	VALUES (?, ?)"))) {
@@ -270,7 +277,14 @@ class ZakupkiGovRu
     {
         //$fromURL = self::$STARTPAGE;
         if ($makeSleep) {
-            sleep($makeSleep);
+            $ccc = 0;
+            while ($ccc++ < $makeSleep){
+                try {
+                    sleep(1);
+                } catch (Exception $e){
+
+                }
+            }
         }
         if ($reinitBrowser){
             curl_close ($this->browser);
@@ -296,6 +310,10 @@ class ZakupkiGovRu
         }
         $lastHttpCode = curl_getinfo ($ch);
         if ($lastHttpCode['http_code'] != 200) {
+            if ($makeSleep < 40) {
+                $makeSleep = 40;
+            }
+            timeStampedEcho('Got wrong HTTP_CODE ['.$lastHttpCode['http_code'].']. Sleeping '.($makeSleep*2)."\n");
             return ($this->loadPage($fromURL,$toFile,5,1, $makeSleep*2));
         }
 
