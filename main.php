@@ -28,10 +28,12 @@ date_default_timezone_set("Europe/Moscow");
  * Time: 20:29
  */
 //echo("sdf\n");
+/*
 $connection = connectDB();
 if (is_null($connection)) {
     exit;
 }
+*/
 
 
 $zgr = new ZakupkiGovRu($connection);
@@ -46,6 +48,8 @@ timeStampedEcho("Starting\n");
 //exit;
 
 //loadStartPage($url,'.\\datas\\0.html', $ch);
+$zgr->setIsUseDB(false);
+$zgr->setHandleFinishedByDates(true);
 $zgr->setIsSaveToDisk(true);
 $zgr->setIsCollectTenderTd(true);
 $zgr->setIsStoreRequests(false);

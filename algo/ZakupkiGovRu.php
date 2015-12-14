@@ -28,11 +28,25 @@
  */
 class ZakupkiGovRu
 {
+    // завершенные закупки за 20151213
+    //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
+    //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
+    //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=2&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
+    //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
+
+    private static $STARTPAGEFINISHED=array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom='
+    ,'&updateDateTo='
+    ,'&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo='
+    ,'&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
+
+    //http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=2&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
+    //http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=3&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
+    //http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
     /**
      * @var string
      */
     //private static $STARTPAGE = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
-    private static $STARTPAGE = 'http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=';
+    private static $STARTPAGE = 'http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=';
     //private static $OTHERPAGES = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=','&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=');
     private static $OTHERPAGES = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=','&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
     //                           http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
@@ -78,6 +92,47 @@ class ZakupkiGovRu
         return $this->IsStoreRequests;
     }
 
+    private $HandleFinishedByDates = false;
+
+    /**
+     * @return boolean
+     */
+    public function isHandleFinishedByDates()
+    {
+        return $this->HandleFinishedByDates;
+    }
+
+    /**
+     * @param boolean $HandleFinishedByDates
+     * @return ZakupkiGovRu
+     */
+    public function setHandleFinishedByDates($HandleFinishedByDates)
+    {
+        $this->HandleFinishedByDates = $HandleFinishedByDates;
+        return $this;
+    }
+
+
+    private $IsUseDB = false;
+
+    /**
+     * @return boolean
+     */
+    public function isIsUseDB()
+    {
+        return $this->IsUseDB;
+    }
+
+    /**
+     * @param boolean $IsUseDB
+     * @return ZakupkiGovRu
+     */
+    public function setIsUseDB($IsUseDB)
+    {
+        $this->IsUseDB = $IsUseDB;
+        return $this;
+    }
+
     /**
      *
      */
@@ -88,6 +143,8 @@ class ZakupkiGovRu
     }
 
     private function touchConnection(){
+        if (!$this->isIsUseDB()) return null;
+
         $this->dbConnection = touchDB($this->dbConnection);
     }
 
@@ -98,6 +155,8 @@ class ZakupkiGovRu
      */
     private function storeRequest($pageText, $pageTextCRLFLess, $reqURL)
     {
+        if (!$this->isIsUseDB()) return null;
+
         $this->touchConnection();
         /* подготавливаемый запрос, первая стадия: подготовка */
         $stmt = null;
@@ -121,6 +180,8 @@ class ZakupkiGovRu
      */
 
     private function storeTendertd($TenderDT,$TenderDD){
+        if (!$this->isIsUseDB()) return null;
+
         $this->touchConnection();
         $stmt = null;
         if (!($stmt = $this->dbConnection->prepare("INSERT INTO zakupki_gov_ru_tendertd	(TenderDT, TenderDD)	VALUES (?, ?)"))) {
@@ -136,6 +197,26 @@ class ZakupkiGovRu
         $stmt->close();
     }
 
+    private $storeTenderFilesInDir = null;
+
+    /**
+     * @return null
+     */
+    public function getStoreTenderFilesInDir()
+    {
+        return $this->storeTenderFilesInDir;
+    }
+
+    /**
+     * @param null $storeTenderFilesInDir
+     * @return ZakupkiGovRu
+     */
+    public function setStoreTenderFilesInDir($storeTenderFilesInDir)
+    {
+        $this->storeTenderFilesInDir = $storeTenderFilesInDir;
+        return $this;
+    }
+
 
     /*
      * INSERT INTO zakupki_gov_ru_descripttenders
@@ -144,6 +225,7 @@ class ZakupkiGovRu
      */
     private function storeDescriptTenderTd($tid,$turl)
     {
+        if (!$this->isIsUseDB()) return null;
         $this->touchConnection();
         /* подготавливаемый запрос, первая стадия: подготовка */
         $stmt = null;
@@ -165,7 +247,9 @@ class ZakupkiGovRu
 
         $turl = preg_replace('/^\//', 'http://www.zakupki.gov.ru/', $turl);
 
-        $pageText = $this->loadPage($turl, '.\\datas\\zakupki.gov\\tenders\\' . $tid . '.html');
+        //'.\\datas\\zakupki.gov\\tenders\\';
+
+        $pageText = $this->loadPage($turl,$this->getStoreTenderFilesInDir()  . $tid . '.html');
 
     }
 
@@ -253,20 +337,54 @@ class ZakupkiGovRu
     {
         $this->browser = create_curl();
 
-        $startPageText = $this->loadPage(self::$STARTPAGE, '.\\datas\\zakupki.gov\\0.html');
+        unset ($dirToSaveTo, $url, $startPageText);
 
-        $this->workOutPage($startPageText[0], $startPageText[1], self::$STARTPAGE);
+        $cDate = getdate ();
+        $cDateFmt = date('Ymd',$cDate[0]);
+        // date('Ymd',$cDate[0]-60*60*24)
 
-        $url1 = self::$OTHERPAGES[0];
-        //'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
-        $url2 = self::$OTHERPAGES[1];
-        //'&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
-        for ($i = 1; $i <= 100; $i++) {
-            //sleep(5);
-            $url = $url1 . $i . $url2;
-            timeStampedEcho($url . "\n");
-            $pageText = $this->loadPage($url, '.\\datas\\zakupki.gov\\' . $i . '.html');
-            $this->workOutPage($pageText[0], $pageText[1], $url);
+
+        if ($this->isHandleFinishedByDates()) {
+            $dirToSaveTo = '.\\datas\\zakupki.gov\\finished';
+        } else {
+            $dirToSaveTo = '.\\datas\\zakupki.gov\\'.$cDateFmt;
+            $url    = self::$STARTPAGE;
+        }
+        if (!is_dir ($dirToSaveTo) ) mkdir ($dirToSaveTo,0700,true);
+
+        for ($days = 1; $days <= 100 ; $days++){
+            for ($i = 1; $i <= 100; $i++) {
+                if ($this->isHandleFinishedByDates()) {
+                    $cDateFmt = date('Ymd',$cDate[0]-$days*60*60*24);
+                    $dirToSaveTo1 = $dirToSaveTo.'\\'.$cDateFmt;
+                    timeStampedEcho("[v1]"."\t[".$days."]\t[".$cDateFmt."]\t[".$i."]\t\n");
+                    if (!is_dir ($dirToSaveTo1) ) mkdir ($dirToSaveTo1,0700,true);
+                    // '.\\datas\\zakupki.gov\\tenders\\'
+                    $this->setStoreTenderFilesInDir($dirToSaveTo1.'\\tenders\\');
+                    if (!is_dir ($this->getStoreTenderFilesInDir()) ) mkdir ($this->getStoreTenderFilesInDir(),0700,true);
+                    $url = self::$STARTPAGEFINISHED[0].date('d.m.Y',$cDate[0]-$days*60*60*24).self::$STARTPAGEFINISHED[1].date('d.m.Y',$cDate[0]-$days*60*60*24).self::$STARTPAGEFINISHED[2].$i.self::$STARTPAGEFINISHED[3];
+                    $startPageText = $this->loadPage($url, $dirToSaveTo1.'\\'.$i.'.html');
+                    $this->workOutPage($startPageText[0], $startPageText[1], $url);
+                } else {
+                    //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
+                    //$this->workOutPage($startPageText[0], $startPageText[1], $url);
+                    $url1 = self::$OTHERPAGES[0];
+                    //'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
+                    $url2 = self::$OTHERPAGES[1];
+                    //'&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
+
+                    $url = $url1 . $i . $url2;
+                    //timeStampedEcho($url . "\n");
+                    timeStampedEcho("[v2]"."\t[".$i."]\t\n");
+                    $this->setStoreTenderFilesInDir($dirToSaveTo.'\\tenders\\');
+                    if (!is_dir ($this->getStoreTenderFilesInDir()) )mkdir ($this->getStoreTenderFilesInDir(),0700,true);
+                    $pageText = $this->loadPage($url, $dirToSaveTo.'\\' . $i . '.html');
+                    $this->workOutPage($pageText[0], $pageText[1], $url);
+                }
+
+
+            }
+
         }
 
 

@@ -24,7 +24,7 @@ function create_curl() {
 
     //curl_setopt ( $ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5 );
     //curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
-    //curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
+    //curl_setopt ( $ch, CURLOPT_PROXYPORT, 1080 );
     //curl_setopt ( $ch, CURLOPT_PROXY, '127.0.0.1' );
 
     //$fperr = @fopen ( '.\\datas\\err.html', "w" );
