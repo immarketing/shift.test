@@ -2,6 +2,7 @@
 
 //use algo\ZakupkiGovRu;
 
+require_once("algo/TenderFileDB.php");
 require_once("algo/ZakupkiGovRu.php");
 
 //use algo\ZakupkiGovRu;

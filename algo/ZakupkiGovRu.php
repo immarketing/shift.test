@@ -113,6 +113,13 @@ class ZakupkiGovRu
         return $this;
     }
 
+    private $tendersFileDB = null;
+
+    public function readFinishedFromDir (){
+        $tendersFileDB = $this->tendersFileDB;
+        $tendersFileDB->readFromDir();
+
+    }
 
     private $IsUseDB = false;
 
@@ -141,6 +148,7 @@ class ZakupkiGovRu
     {
         timeStampedEcho("ZakupkiGovRu created\n");
         $this->dbConnection = $dbc;
+        $this->tendersFileDB = new TenderFileDB();
     }
 
     private function touchConnection()
@@ -355,6 +363,9 @@ class ZakupkiGovRu
             $dirToSaveTo = '.\\datas\\zakupki.gov\\' . $cDateFmt;
             $url = self::$STARTPAGE;
         }
+        $this->tendersFileDB->setStartDir($dirToSaveTo);
+        $this->readFinishedFromDir();
+
         if (!is_dir($dirToSaveTo)) mkdir($dirToSaveTo, 0700, true);
 
         for ($days = 1; $days <= 100; $days++) {
