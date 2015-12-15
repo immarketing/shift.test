@@ -11,6 +11,7 @@ class TenderFileDB
 {
     private $startDir = null;
     private $elements = array();
+    private $tenders = array();
 
     /**
      * @return null
@@ -29,6 +30,23 @@ class TenderFileDB
         $this->startDir = $startDir;
         return $this;
     }
+
+    private function updateTenders (){
+        unset ($this->tenders);
+        foreach ($this->elements as $key => $element){
+            if ($element) {
+                $tendersOfElement = $element['tenders'];
+                foreach ($tendersOfElement as $tenderID => &$tenderInfo) {
+                    if (!$this->tenders[$tenderID])
+                    $this->tenders[$tenderID] = $tenderInfo;
+                }
+            };
+
+        }
+
+    }
+
+
 
     public function readFromDir($fromDir = null){
         if (!$fromDir){
@@ -71,7 +89,9 @@ class TenderFileDB
             }
             closedir($handle);
         }
-        $this->elements = $elements;
+        krsort ($elements);
+        $this->elements = &$elements;
+        $this->updateTenders();
     }
 }
 
