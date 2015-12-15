@@ -11,13 +11,8 @@ function timeStampedEcho($outSt) {
     echo "[$t]\t$outSt";
 }
 
-
-/**
- * @return resource
- */
-function create_curl() {
-    //http://hideme.ru/proxy-list/?type=5
-    static $GlobalCURLProxies = array (
+function rereadProxies (){
+    $defaultProxies = array (
         null,
         array(CURLPROXY_SOCKS5,1080,'127.0.0.1'),
         array(CURLPROXY_SOCKS5,10200,'77.105.194.125'),
@@ -29,6 +24,35 @@ function create_curl() {
         array(CURLPROXY_SOCKS5,3130,'31.184.242.114'),
         array(CURLPROXY_SOCKS5,10200,'137.118.141.50')
     );
+    $dbProxies = array ();
+    try {
+        $dbc = connectDB();
+
+        $rst = $dbc->query('select HOSTNAME, PORT, PHPPROXYTYPE from proxies');
+        if ($rst) {
+            while ($row = $rst->fetch_assoc()) {
+                $dbp = array($row[PHPPROXYTYPE],$row[PORT],$row[HOSTNAME]);
+                $dbProxies[]= &$dbp;
+                //echo " id = " . $row['id'] . "\n";
+            }
+            $rst->close();
+        }
+
+        $dbc ->close();
+
+    } catch (Exception $e) {
+
+    }
+    return array_merge ($defaultProxies,$dbProxies);
+}
+
+
+/**
+ * @return resource
+ */
+function create_curl() {
+    //http://hideme.ru/proxy-list/?type=5
+    static $GlobalCURLProxies = array ();
     static $GlobalCURLProxiesCurrentIndex = 0;
 
     $ch = curl_init ();
@@ -38,11 +62,16 @@ function create_curl() {
     curl_setopt ( $ch, CURLOPT_HTTPGET, true );
     curl_setopt ( $ch, CURLOPT_VERBOSE, true );
 
+    if (($GlobalCURLProxiesCurrentIndex == 0) || (count($GlobalCURLProxies)==0)){
+        $GlobalCURLProxies = rereadProxies();
+    }
+
     if ($GlobalCURLProxies[$GlobalCURLProxiesCurrentIndex]) {
         $prx = $GlobalCURLProxies[$GlobalCURLProxiesCurrentIndex];
         curl_setopt ( $ch, CURLOPT_PROXYTYPE, $prx[0] );
         curl_setopt ( $ch, CURLOPT_PROXYPORT, $prx[1] );
         curl_setopt ( $ch, CURLOPT_PROXY, $prx[2] );
+        timeStampedEcho('Using ['.$GlobalCURLProxiesCurrentIndex.'] proxy');
     }
     $GlobalCURLProxiesCurrentIndex = ($GlobalCURLProxiesCurrentIndex+1)%count($GlobalCURLProxies);
 

@@ -371,7 +371,7 @@ class ZakupkiGovRu
         for ($days = 1; $days <= 100; $days++) {
             for ($i = 1; $i <= 100; $i++) {
                 if ($this->isHandleFinishedByDates()) {
-                    $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24);
+                    $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24); // дата изменения процедуры, с которой работаем
                     $dirToSaveTo1 = $dirToSaveTo . '\\' . $cDateFmt;
                     timeStampedEcho("[v1]" . "\t[" . $days . "]\t[" . $cDateFmt . "]\t[" . $i . "]\t\n");
                     if (!is_dir($dirToSaveTo1)) mkdir($dirToSaveTo1, 0700, true);
@@ -379,7 +379,8 @@ class ZakupkiGovRu
                     $this->setStoreTenderFilesInDir($dirToSaveTo1 . '\\tenders\\');
                     if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
                     $url = self::$STARTPAGEFINISHED[0] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[1] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[2] . $i . self::$STARTPAGEFINISHED[3];
-                    $startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
+                    //$startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
+                    $startPageText = $this->loadQuery($url, $dirToSaveTo1 . '\\' . $i . '.html',$cDateFmt,$i);
                     $this->workOutPage($startPageText[0], $startPageText[1], $url);
                 } else {
                     //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
@@ -407,6 +408,20 @@ class ZakupkiGovRu
         return null;
     }
 
+    protected function loadQuery($fromURL, $toFile, $dt, $num) {
+        unset ($startPageText);
+        if (is_file($toFile)) {
+            // такой файл есть. Читаем текст из файла
+            $startPageText = file_get_contents ($toFile );
+            $startPageText = array($startPageText, $this->truncateCRLF($startPageText));
+        } else {
+            $startPageText = $this->loadPage($fromURL, $toFile);
+            if ($startPageText) {
+                $this->tendersFileDB->gotNewQuery($toFile,$startPageText,$dt,$num);
+            }
+        }
+        return $startPageText;
+    }
     protected function loadPage($fromURL, $toFile, $curl_tmout = 10, $reinitBrowser = 0, $makeSleep = 5)
     {
         //$fromURL = self::$STARTPAGE;
@@ -469,10 +484,15 @@ class ZakupkiGovRu
         //$fndRst = preg_match_all ('(/epz.*common.*[0-9]{10,14})',$rst,$fnd);
         //$fndRst = preg_match_all ('(/epz.*common.*[0-9]{10,14})',$rst,$fnd);
 
-        $rstTrncated = preg_replace('/\r/', ' ', $rst);
-        $rstTrncated = preg_replace('/\n/', ' ', $rstTrncated);
+        //$rstTrncated = preg_replace('/\r/', ' ', $rst);
+        //$rstTrncated = preg_replace('/\n/', ' ', $rstTrncated);
+        $rstTrncated = $this->truncateCRLF($rst);
 
         return array($rst, $rstTrncated);
+    }
+
+    private function truncateCRLF (&$str) {
+        return preg_replace('/\r/', ' ', preg_replace('/\n/', ' ', $str));
     }
 
     /**

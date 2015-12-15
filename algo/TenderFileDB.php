@@ -12,6 +12,7 @@ class TenderFileDB
     private $startDir = null;
     private $elements = array();
     private $tenders = array();
+    private $queries = array();
 
     /**
      * @return null
@@ -33,6 +34,9 @@ class TenderFileDB
 
     private function updateTenders (){
         unset ($this->tenders);
+        if (!$this->elements) {
+            return;
+        }
         foreach ($this->elements as $key => $element){
             if ($element) {
                 $tendersOfElement = $element['tenders'];
@@ -46,6 +50,17 @@ class TenderFileDB
 
     }
 
+    public function gotNewQuery ($qFileName,$qText, $qDt, $qNm){
+        $queryFileName = $qFileName;
+        $entryQueryID = $qDt.'_'.$qNm;
+
+        if (!$this->queries[$entryQueryID]) {
+            $queries[$entryQueryID] = array('fileName'=>$qNm.'.html','id'=>$entryQueryID,'path'=>$queryFileName);
+            krsort ($this->queries);
+        }
+        return $this;
+    }
+
 
 
     public function readFromDir($fromDir = null){
@@ -56,6 +71,7 @@ class TenderFileDB
             return;
         }
         $elements = null;
+        $queries = null;
         if ($handle = opendir($fromDir)) {
             while (false !== ($entry = readdir($handle))) {
                 if ($entry != "." && $entry != "..") {
@@ -67,7 +83,23 @@ class TenderFileDB
                     $fullDir = $fromDir.'\\'.$entry;
                     unset ($tenders);
                     if (is_dir($fullDir)) {
+                        // нашли директорию с запросами и тендерами
+                        if ($handleQueries = opendir($fullDir)) {
+                            while (false !== ($entryQuery = readdir($handleQueries))) {
+                                if (!is_dir($fullDir.'\\'.$entryQuery)) if ($entryQuery != "." && $entryQuery != "..") {
+                                    /*
+                                     * пропускаем директории
+                                     * файлы с запросами
+                                     */
+                                    $queryFileName = $fullDir.'\\'.$entryQuery;
+                                    $entryQueryID = $entry.'_'.preg_replace('/.html$/', '', $entryQuery);
+                                    $queries[$entryQueryID] = array('fileName'=>$entryQuery,'id'=>$entryQueryID,'path'=>$queryFileName);
+                                }
+                            }
+                            closedir($handleQueries);
+                        }
                         if ($handleTenders = opendir($fullDir.'\\tenders')) {
+                            // считываем тендера
                             while (false !== ($entryTender = readdir($handleTenders))) {
                                 if ($entryTender != "." && $entryTender != "..") {
                                     /*
@@ -92,6 +124,9 @@ class TenderFileDB
         krsort ($elements);
         $this->elements = &$elements;
         $this->updateTenders();
+
+        krsort ($queries);
+        $this->queries = &$queries;
     }
 }
 
