@@ -30,14 +30,15 @@ class ZakupkiGovRu
 {
     // завершенные закупки за 20151213
     //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
+    //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=PRICE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
     //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
     //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=2&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
     //http://www.zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
 
-    private static $STARTPAGEFINISHED=array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom='
-    ,'&updateDateTo='
-    ,'&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo='
-    ,'&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
+    private static $STARTPAGEFINISHED = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom='
+    , '&updateDateTo='
+    , '&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=PRICE&recordsPerPage=_500&pageNo='
+    , '&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
 
     //http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=2&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
     //http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=13.12.2015&updateDateTo=13.12.2015&_orderStages=on&_orderStages=on&orderStages=PC&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=3&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
@@ -48,7 +49,7 @@ class ZakupkiGovRu
     //private static $STARTPAGE = 'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?placeOfSearch=FZ_44&placeOfSearch=FZ_223&orderPriceFrom=&orderPriceTo=&orderPriceCurrencyId=-1&deliveryAddress=&participantName=&orderPublishDateFrom=&orderPublishDateTo=&orderUpdateDateFrom=&orderUpdateDateTo=&customer.title=&customer.code=&customer.fz94id=&customer.fz223id=&customer.inn=&agency.title=&agency.code=&agency.fz94id=&agency.fz223id=&agency.inn=&orderStages=AF&orderStages=CA&searchTextInAttachedFile=&applSubmissionCloseDateFrom=&applSubmissionCloseDateTo=&searchString=&morphology=false&strictEqual=false';
     private static $STARTPAGE = 'http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=';
     //private static $OTHERPAGES = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=','&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=');
-    private static $OTHERPAGES = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=','&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
+    private static $OTHERPAGES = array('http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=', '&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=');
     //                           http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=false&isHeaderClick=&checkIds=
     // http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=1&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
     // http://zakupki.gov.ru/epz/order/quicksearch/update.html?placeOfSearch=FZ_44&_placeOfSearch=on&placeOfSearch=FZ_223&_placeOfSearch=on&_placeOfSearch=on&priceFrom=0&priceTo=200+000+000+000&publishDateFrom=&publishDateTo=&updateDateFrom=&updateDateTo=&orderStages=AF&_orderStages=on&orderStages=CA&_orderStages=on&_orderStages=on&_orderStages=on&sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=2&searchString=&strictEqual=false&morphology=false&showLotsInfo=false&isPaging=true&isHeaderClick=&checkIds=
@@ -142,7 +143,8 @@ class ZakupkiGovRu
         $this->dbConnection = $dbc;
     }
 
-    private function touchConnection(){
+    private function touchConnection()
+    {
         if (!$this->isIsUseDB()) return null;
 
         $this->dbConnection = touchDB($this->dbConnection);
@@ -179,7 +181,8 @@ class ZakupkiGovRu
 	VALUES ('', '')
      */
 
-    private function storeTendertd($TenderDT,$TenderDD){
+    private function storeTendertd($TenderDT, $TenderDD)
+    {
         if (!$this->isIsUseDB()) return null;
 
         $this->touchConnection();
@@ -188,7 +191,7 @@ class ZakupkiGovRu
             timeStampedEcho("Не удалось подготовить запрос: (" . $this->dbConnection->errno . ") " . $this->dbConnection->error);
             return null;
         }
-        if (!$stmt->bind_param("ss", $TenderDT,$TenderDD)) {
+        if (!$stmt->bind_param("ss", $TenderDT, $TenderDD)) {
             echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!($rslt = $stmt->execute())) {
@@ -223,7 +226,7 @@ class ZakupkiGovRu
 	(TENDERID, TENDERURL)
 	VALUES ('', '')
      */
-    private function storeDescriptTenderTd($tid,$turl)
+    private function storeDescriptTenderTd($tid, $turl)
     {
         if (!$this->isIsUseDB()) return null;
         $this->touchConnection();
@@ -233,7 +236,7 @@ class ZakupkiGovRu
             timeStampedEcho("Не удалось подготовить запрос: (" . $this->dbConnection->errno . ") " . $this->dbConnection->error);
             return null;
         }
-        if (!$stmt->bind_param("ss", $tid,$turl)) {
+        if (!$stmt->bind_param("ss", $tid, $turl)) {
             echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!($rslt = $stmt->execute())) {
@@ -242,18 +245,20 @@ class ZakupkiGovRu
         $stmt->close();
     }
 
-    private function loadTenderDesc ($tid,$turl){
+    private function loadTenderDesc($tid, $turl)
+    {
         //       http://www.zakupki.gov.ru/
 
         $turl = preg_replace('/^\//', 'http://www.zakupki.gov.ru/', $turl);
 
         //'.\\datas\\zakupki.gov\\tenders\\';
 
-        $pageText = $this->loadPage($turl,$this->getStoreTenderFilesInDir()  . $tid . '.html');
+        $pageText = $this->loadPage($turl, $this->getStoreTenderFilesInDir() . $tid . '.html');
 
     }
 
-    private function handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL){
+    private function handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL)
+    {
         $fndRst = preg_match_all('/"descriptTenderTd".*?<\/td>/s', $pageText, $matches);
         if ($fndRst) foreach ($matches[0] as $oneString) {
             $tenderTd = array('', '');
@@ -280,7 +285,7 @@ class ZakupkiGovRu
             }
             if ($tenderTd) {
                 //sleep(5);
-                if ($this->getIsCollectTenderTd()){
+                if ($this->getIsCollectTenderTd()) {
                     $this->loadTenderDesc($tenderTd[1], $tenderTd[0]);
                     $this->storeDescriptTenderTd($tenderTd[1], $tenderTd[0]);
 
@@ -301,7 +306,7 @@ class ZakupkiGovRu
         //$fndRst = preg_match_all('tenderTd.*?<\/td>', $pageTextCRLFLess, $fnd);
 
         // descriptTenderTd
-        $this->handleDescriptTenderTd($pageText,$pageTextCRLFLess,$reqURL);
+        $this->handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL);
 
         if ($this->getIsCollectTenderTd()) {
             $fndRst = preg_match_all('/"tenderTd".*?<\/td>/s', $pageText, $matches);
@@ -315,7 +320,7 @@ class ZakupkiGovRu
                     //timeStampedEcho($matchesOneString[1][0] . "\t\n");
                     $tenderTd[1] = $matchesOneString[1][0];
                 }
-                $this->storeTendertd($tenderTd[0],$tenderTd[1]);
+                $this->storeTendertd($tenderTd[0], $tenderTd[1]);
             }
         }
 
@@ -339,31 +344,31 @@ class ZakupkiGovRu
 
         unset ($dirToSaveTo, $url, $startPageText);
 
-        $cDate = getdate ();
-        $cDateFmt = date('Ymd',$cDate[0]);
+        $cDate = getdate();
+        $cDateFmt = date('Ymd', $cDate[0]);
         // date('Ymd',$cDate[0]-60*60*24)
 
 
         if ($this->isHandleFinishedByDates()) {
             $dirToSaveTo = '.\\datas\\zakupki.gov\\finished';
         } else {
-            $dirToSaveTo = '.\\datas\\zakupki.gov\\'.$cDateFmt;
-            $url    = self::$STARTPAGE;
+            $dirToSaveTo = '.\\datas\\zakupki.gov\\' . $cDateFmt;
+            $url = self::$STARTPAGE;
         }
-        if (!is_dir ($dirToSaveTo) ) mkdir ($dirToSaveTo,0700,true);
+        if (!is_dir($dirToSaveTo)) mkdir($dirToSaveTo, 0700, true);
 
-        for ($days = 1; $days <= 100 ; $days++){
+        for ($days = 1; $days <= 100; $days++) {
             for ($i = 1; $i <= 100; $i++) {
                 if ($this->isHandleFinishedByDates()) {
-                    $cDateFmt = date('Ymd',$cDate[0]-$days*60*60*24);
-                    $dirToSaveTo1 = $dirToSaveTo.'\\'.$cDateFmt;
-                    timeStampedEcho("[v1]"."\t[".$days."]\t[".$cDateFmt."]\t[".$i."]\t\n");
-                    if (!is_dir ($dirToSaveTo1) ) mkdir ($dirToSaveTo1,0700,true);
+                    $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24);
+                    $dirToSaveTo1 = $dirToSaveTo . '\\' . $cDateFmt;
+                    timeStampedEcho("[v1]" . "\t[" . $days . "]\t[" . $cDateFmt . "]\t[" . $i . "]\t\n");
+                    if (!is_dir($dirToSaveTo1)) mkdir($dirToSaveTo1, 0700, true);
                     // '.\\datas\\zakupki.gov\\tenders\\'
-                    $this->setStoreTenderFilesInDir($dirToSaveTo1.'\\tenders\\');
-                    if (!is_dir ($this->getStoreTenderFilesInDir()) ) mkdir ($this->getStoreTenderFilesInDir(),0700,true);
-                    $url = self::$STARTPAGEFINISHED[0].date('d.m.Y',$cDate[0]-$days*60*60*24).self::$STARTPAGEFINISHED[1].date('d.m.Y',$cDate[0]-$days*60*60*24).self::$STARTPAGEFINISHED[2].$i.self::$STARTPAGEFINISHED[3];
-                    $startPageText = $this->loadPage($url, $dirToSaveTo1.'\\'.$i.'.html');
+                    $this->setStoreTenderFilesInDir($dirToSaveTo1 . '\\tenders\\');
+                    if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
+                    $url = self::$STARTPAGEFINISHED[0] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[1] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[2] . $i . self::$STARTPAGEFINISHED[3];
+                    $startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
                     $this->workOutPage($startPageText[0], $startPageText[1], $url);
                 } else {
                     //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
@@ -375,10 +380,10 @@ class ZakupkiGovRu
 
                     $url = $url1 . $i . $url2;
                     //timeStampedEcho($url . "\n");
-                    timeStampedEcho("[v2]"."\t[".$i."]\t\n");
-                    $this->setStoreTenderFilesInDir($dirToSaveTo.'\\tenders\\');
-                    if (!is_dir ($this->getStoreTenderFilesInDir()) )mkdir ($this->getStoreTenderFilesInDir(),0700,true);
-                    $pageText = $this->loadPage($url, $dirToSaveTo.'\\' . $i . '.html');
+                    timeStampedEcho("[v2]" . "\t[" . $i . "]\t\n");
+                    $this->setStoreTenderFilesInDir($dirToSaveTo . '\\tenders\\');
+                    if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
+                    $pageText = $this->loadPage($url, $dirToSaveTo . '\\' . $i . '.html');
                     $this->workOutPage($pageText[0], $pageText[1], $url);
                 }
 
@@ -391,21 +396,21 @@ class ZakupkiGovRu
         return null;
     }
 
-    protected function loadPage($fromURL, $toFile, $curl_tmout=5, $reinitBrowser=0, $makeSleep=5)
+    protected function loadPage($fromURL, $toFile, $curl_tmout = 10, $reinitBrowser = 0, $makeSleep = 5)
     {
         //$fromURL = self::$STARTPAGE;
         if ($makeSleep) {
             $ccc = 0;
-            while ($ccc++ < $makeSleep){
+            while ($ccc++ < $makeSleep) {
                 try {
                     sleep(1);
-                } catch (Exception $e){
+                } catch (Exception $e) {
 
                 }
             }
         }
-        if ($reinitBrowser){
-            curl_close ($this->browser);
+        if ($reinitBrowser) {
+            curl_close($this->browser);
             $this->browser = create_curl();
         }
         $ch = $this->browser;
@@ -423,16 +428,19 @@ class ZakupkiGovRu
         $curl_errno = curl_errno($ch);
         $curl_error = curl_error($ch);
         if ($curl_errno > 0) {
-            timeStampedEcho( "cURL Error ($curl_errno): $curl_error\n");
-            return ($this->loadPage($fromURL,$toFile,$curl_tmout*2));
+            timeStampedEcho("cURL Error ($curl_errno): $curl_error\n");
+            if ($curl_errno != 28) {
+                return ($this->loadPage($fromURL, $toFile, $curl_tmout * 2, 1));
+            } else
+                return ($this->loadPage($fromURL, $toFile, $curl_tmout * 2));
         }
-        $lastHttpCode = curl_getinfo ($ch);
+        $lastHttpCode = curl_getinfo($ch);
         if ($lastHttpCode['http_code'] != 200) {
             if ($makeSleep < 40) {
                 $makeSleep = 40;
             }
-            timeStampedEcho('Got wrong HTTP_CODE ['.$lastHttpCode['http_code'].']. Sleeping '.($makeSleep*2)."\n");
-            return ($this->loadPage($fromURL,$toFile,5,1, $makeSleep*2));
+            timeStampedEcho('Got wrong HTTP_CODE [' . $lastHttpCode['http_code'] . ']. Sleeping ' . ($makeSleep * 2) . "\n");
+            return ($this->loadPage($fromURL, $toFile, 10, 1, $makeSleep * 2));
         }
 
         if ($this->getIsSaveToDisk()) {

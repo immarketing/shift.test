@@ -11,16 +11,40 @@ function timeStampedEcho($outSt) {
     echo "[$t]\t$outSt";
 }
 
+
 /**
  * @return resource
  */
 function create_curl() {
+    //http://hideme.ru/proxy-list/?type=5
+    static $GlobalCURLProxies = array (
+        null,
+        array(CURLPROXY_SOCKS5,1080,'127.0.0.1'),
+        array(CURLPROXY_SOCKS5,10200,'77.105.194.125'),
+        array(CURLPROXY_SOCKS5,60088,'188.165.203.182'),
+        array(CURLPROXY_SOCKS5,60088,'188.165.194.129'),
+        array(CURLPROXY_SOCKS5,55788,'94.137.50.114'),
+        array(CURLPROXY_SOCKS5,10200,'24.192.116.105'),
+        array(CURLPROXY_SOCKS5,60088,'167.114.156.160'),
+        array(CURLPROXY_SOCKS5,3130,'31.184.242.114'),
+        array(CURLPROXY_SOCKS5,10200,'137.118.141.50')
+    );
+    static $GlobalCURLProxiesCurrentIndex = 0;
+
     $ch = curl_init ();
     curl_setopt ( $ch, CURLOPT_COOKIESESSION, true );
     curl_setopt ( $ch, CURLOPT_HEADER, true );
     curl_setopt ( $ch, CURLINFO_HEADER_OUT, true );
     curl_setopt ( $ch, CURLOPT_HTTPGET, true );
     curl_setopt ( $ch, CURLOPT_VERBOSE, true );
+
+    if ($GlobalCURLProxies[$GlobalCURLProxiesCurrentIndex]) {
+        $prx = $GlobalCURLProxies[$GlobalCURLProxiesCurrentIndex];
+        curl_setopt ( $ch, CURLOPT_PROXYTYPE, $prx[0] );
+        curl_setopt ( $ch, CURLOPT_PROXYPORT, $prx[1] );
+        curl_setopt ( $ch, CURLOPT_PROXY, $prx[2] );
+    }
+    $GlobalCURLProxiesCurrentIndex = ($GlobalCURLProxiesCurrentIndex+1)%count($GlobalCURLProxies);
 
     //curl_setopt ( $ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5 );
     //curl_setopt ( $ch, CURLOPT_PROXYPORT, 9150 );
