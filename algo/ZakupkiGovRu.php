@@ -15,6 +15,15 @@
  * http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_20&pageNo=1&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false
  */
 
+class HTTPCODE500Exception extends Exception {
+
+}
+
+class HTTPCODE434Exception extends Exception {
+
+}
+
+
 /**
  *
  * Начало описания тендера descriptTenderTd
@@ -399,37 +408,44 @@ class ZakupkiGovRu
         if (!is_dir($dirToSaveTo)) mkdir($dirToSaveTo, 0700, true);
 
         for ($days = 1; $days <= 100; $days++) {
-            for ($i = 1; $i <= 100; $i++) {
-                if ($this->isHandleFinishedByDates()) {
-                    $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24); // дата изменения процедуры, с которой работаем
-                    $dirToSaveTo1 = $dirToSaveTo . '\\' . $cDateFmt;
-                    timeStampedEcho("[v1]" . "\t[" . $days . "]\t[" . $cDateFmt . "]\t[" . $i . "]\t\n");
-                    if (!is_dir($dirToSaveTo1)) mkdir($dirToSaveTo1, 0700, true);
-                    // '.\\datas\\zakupki.gov\\tenders\\'
-                    $this->setStoreTenderFilesInDir($dirToSaveTo1 . '\\tenders\\');
-                    if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
-                    $url = self::$STARTPAGEFINISHED[0] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[1] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[2] . $i . self::$STARTPAGEFINISHED[3];
-                    //$startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
-                    $startPageText = $this->loadQuery($url, $dirToSaveTo1 . '\\' . $i . '.html',$cDateFmt,$i);
-                    $this->workOutPage($startPageText[0], $startPageText[1], $url);
-                } else {
-                    //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
-                    //$this->workOutPage($startPageText[0], $startPageText[1], $url);
-                    $url1 = self::$OTHERPAGES[0];
-                    //'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
-                    $url2 = self::$OTHERPAGES[1];
-                    //'&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
+            try {
+                for ($i = 1; $i <= 100; $i++) {
+                    if ($this->isHandleFinishedByDates()) {
+                        $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24); // дата изменения процедуры, с которой работаем
+                        $dirToSaveTo1 = $dirToSaveTo . '\\' . $cDateFmt;
+                        timeStampedEcho("[v1]" . "\t[" . $days . "]\t[" . $cDateFmt . "]\t[" . $i . "]\t\n");
+                        if (!is_dir($dirToSaveTo1)) mkdir($dirToSaveTo1, 0700, true);
+                        // '.\\datas\\zakupki.gov\\tenders\\'
+                        $this->setStoreTenderFilesInDir($dirToSaveTo1 . '\\tenders\\');
+                        if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
+                        $url = self::$STARTPAGEFINISHED[0] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[1] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[2] . $i . self::$STARTPAGEFINISHED[3];
+                        //$startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
+                        $startPageText = $this->loadQuery($url, $dirToSaveTo1 . '\\' . $i . '.html',$cDateFmt,$i);
+                        $this->workOutPage($startPageText[0], $startPageText[1], $url);
+                    } else {
+                        //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
+                        //$this->workOutPage($startPageText[0], $startPageText[1], $url);
+                        $url1 = self::$OTHERPAGES[0];
+                        //'http://www.zakupki.gov.ru/epz/order/extendedsearch/search.html?sortDirection=false&sortBy=UPDATE_DATE&recordsPerPage=_50&pageNo=';
+                        $url2 = self::$OTHERPAGES[1];
+                        //'&placeOfSearch=FZ_44%2CFZ_223&searchType=ORDERS&morphology=false&strictEqual=false&orderPriceCurrencyId=-1&okdpWithSubElements=false&orderStages=AF%2CCA&headAgencyWithSubElements=false&smallBusinessSubject=I&rnpData=I&executionRequirement=I&penalSystemAdvantage=I&disabilityOrganizationsAdvantage=I&russianGoodsPreferences=I&orderPriceCurrencyId=-1&okvedWithSubElements=false&jointPurchase=false&byRepresentativeCreated=false&selectedMatchingWordPlace223=NOTICE_AND_DOCS&matchingWordPlace94=NOTIFICATIONS&matchingWordPlace44=NOTIFICATIONS&searchAttachedFile=false&changeParameters=true&showLotsInfo=false&extendedAttributeSearchCriteria.searchByAttributes=NOTIFICATION&law44.okpd.withSubElements=false';
 
-                    $url = $url1 . $i . $url2;
-                    //timeStampedEcho($url . "\n");
-                    timeStampedEcho("[v2]" . "\t[" . $i . "]\t\n");
-                    $this->setStoreTenderFilesInDir($dirToSaveTo . '\\tenders\\');
-                    if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
-                    $pageText = $this->loadPage($url, $dirToSaveTo . '\\' . $i . '.html');
-                    $this->workOutPage($pageText[0], $pageText[1], $url);
+                        $url = $url1 . $i . $url2;
+                        //timeStampedEcho($url . "\n");
+                        timeStampedEcho("[v2]" . "\t[" . $i . "]\t\n");
+                        $this->setStoreTenderFilesInDir($dirToSaveTo . '\\tenders\\');
+                        if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
+                        $pageText = $this->loadPage($url, $dirToSaveTo . '\\' . $i . '.html');
+                        $this->workOutPage($pageText[0], $pageText[1], $url);
+                    }
                 }
-
-
+            }catch (HTTPCODE500Exception $e) {
+                // просто меняем день
+                timeStampedEcho("Got HTTPCODE500Exception\n");
+            } catch (HTTPCODE434Exception $e) {
+                // сайт сдох... выходим. ловить нечего
+                timeStampedEcho("Got HTTPCODE434Exception. ShutDown. See you later\n");
+                exit;
             }
 
         }
@@ -492,6 +508,12 @@ class ZakupkiGovRu
         }
         $lastHttpCode = curl_getinfo($ch);
         if ($lastHttpCode['http_code'] != 200) {
+            if (($lastHttpCode['http_code'] >=500) && ($lastHttpCode['http_code'] <600)){
+                throw new HTTPCODE500Exception;
+            }
+            if ($lastHttpCode['http_code'] == 434) {
+                throw new HTTPCODE434Exception;
+            }
             if ($makeSleep < 5) {
                 $makeSleep = 5;
             }

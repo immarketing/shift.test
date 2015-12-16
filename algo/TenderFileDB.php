@@ -90,8 +90,8 @@ class TenderFileDB
         if (!$fromDir) {
             return;
         }
-        $elements = null;
-        $queries = null;
+        $elements = array();
+        $queries = array();
         if ($handle = opendir($fromDir)) {
             while (false !== ($entry = readdir($handle))) {
                 if ($entry != "." && $entry != "..") {
