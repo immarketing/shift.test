@@ -282,13 +282,13 @@ class ZakupkiGovRu
         if (!$tenderInfo) {
             $pageText = $this->loadPage($turl, $this->getStoreTenderFilesInDir() . $tid . '.html');
             $this->tendersFileDB->gotNewTender( $this->getStoreTenderFilesInDir() . $tid . '.html', $tid);
-            timeStampedEcho("\tTender [".$tid."] read from web \n");
+            timeStampedEcho("\tTender [".$tid."] read from web                             \r");
         } else {
             if (is_file($tenderInfo['path'])) {
                 // такой файл есть. Читаем текст из файла
                 $startPageText = file_get_contents($tenderInfo['path']);
                 $pageText = array($startPageText, $this->truncateCRLF($startPageText));
-                timeStampedEcho("\tTender [".$tid."] read from file \n");
+                timeStampedEcho("\tTender [".$tid."] read from file                             \r");
             } else {
                 timeStampedEcho('OOOOOOOOOOOOOOOOOOOOOOppppsssss did not found neet file ['.$tid."]\n");
             }
