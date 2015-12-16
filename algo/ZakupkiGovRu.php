@@ -253,6 +253,22 @@ class ZakupkiGovRu
         $stmt->close();
     }
 
+    protected function loadQuery111($fromURL, $toFile, $dt, $num) {
+        unset ($startPageText);
+        if (is_file($toFile)) {
+            // такой файл есть. Читаем текст из файла
+            $startPageText = file_get_contents ($toFile );
+            $startPageText = array($startPageText, $this->truncateCRLF($startPageText));
+        } else {
+            $startPageText = $this->loadPage($fromURL, $toFile);
+            if ($startPageText) {
+                $this->tendersFileDB->gotNewQuery($toFile,$startPageText,$dt,$num);
+            }
+        }
+        return $startPageText;
+    }
+
+
     private function loadTenderDesc($tid, $turl)
     {
         //       http://www.zakupki.gov.ru/
@@ -260,9 +276,23 @@ class ZakupkiGovRu
         $turl = preg_replace('/^\//', 'http://www.zakupki.gov.ru/', $turl);
 
         //'.\\datas\\zakupki.gov\\tenders\\';
+        // есть ли такой tid
+        $tenderInfo = $this->tendersFileDB->isTenderIDExists($tid);
 
-        $pageText = $this->loadPage($turl, $this->getStoreTenderFilesInDir() . $tid . '.html');
-
+        if (!$tenderInfo) {
+            $pageText = $this->loadPage($turl, $this->getStoreTenderFilesInDir() . $tid . '.html');
+            $this->tendersFileDB->gotNewTender( $this->getStoreTenderFilesInDir() . $tid . '.html', $tid);
+            timeStampedEcho("\tTender [".$tid."] read from web \n");
+        } else {
+            if (is_file($tenderInfo['path'])) {
+                // такой файл есть. Читаем текст из файла
+                $startPageText = file_get_contents($tenderInfo['path']);
+                $pageText = array($startPageText, $this->truncateCRLF($startPageText));
+                timeStampedEcho("\tTender [".$tid."] read from file \n");
+            } else {
+                timeStampedEcho('OOOOOOOOOOOOOOOOOOOOOOppppsssss did not found neet file ['.$tid."]\n");
+            }
+        }
     }
 
     private function handleDescriptTenderTd($pageText, $pageTextCRLFLess, $reqURL)
@@ -294,7 +324,7 @@ class ZakupkiGovRu
             if ($tenderTd) {
                 //sleep(5);
                 if ($this->getIsCollectTenderTd()) {
-                    $this->loadTenderDesc($tenderTd[1], $tenderTd[0]);
+                    $this->loadTenderDesc($tenderTd[1], $tenderTd[0]); // [0] - URL, [1] - ID
                     $this->storeDescriptTenderTd($tenderTd[1], $tenderTd[0]);
 
                 }
@@ -422,7 +452,7 @@ class ZakupkiGovRu
         }
         return $startPageText;
     }
-    protected function loadPage($fromURL, $toFile, $curl_tmout = 10, $reinitBrowser = 0, $makeSleep = 5)
+    protected function loadPage($fromURL, $toFile, $curl_tmout = 10, $reinitBrowser = 0, $makeSleep = 1)
     {
         //$fromURL = self::$STARTPAGE;
         if ($makeSleep) {
@@ -462,8 +492,8 @@ class ZakupkiGovRu
         }
         $lastHttpCode = curl_getinfo($ch);
         if ($lastHttpCode['http_code'] != 200) {
-            if ($makeSleep < 40) {
-                $makeSleep = 40;
+            if ($makeSleep < 5) {
+                $makeSleep = 5;
             }
             timeStampedEcho('Got wrong HTTP_CODE [' . $lastHttpCode['http_code'] . ']. Sleeping ' . ($makeSleep * 2) . "\n");
             return ($this->loadPage($fromURL, $toFile, 10, 1, $makeSleep * 2));

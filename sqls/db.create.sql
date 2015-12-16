@@ -24,14 +24,23 @@ CREATE TABLE IF NOT EXISTS `proxies` (
   `PORT` int(11) NOT NULL,
   `PHPPROXYTYPE` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы db_shift.proxies: ~3 rows (приблизительно)
+-- Дамп данных таблицы db_shift.proxies: ~12 rows (приблизительно)
 /*!40000 ALTER TABLE `proxies` DISABLE KEYS */;
 INSERT INTO `proxies` (`ID`, `HOSTNAME`, `PORT`, `PHPPROXYTYPE`) VALUES
 	(1, '92.42.12.245', 64101, 5),
 	(2, '94.41.25.144', 1080, 5),
-	(3, '94.23.166.246', 60088, 5);
+	(3, '94.23.166.246', 60088, 5),
+	(4, '46.165.220.77', 2503, 5),
+	(5, '178.26.151.26', 10200, 5),
+	(6, '93.90.215.49', 64101, 5),
+	(7, '5.9.121.109', 60088, 5),
+	(8, '95.131.70.197', 60088, 5),
+	(9, '31.184.242.195', 3130, 5),
+	(10, '91.187.65.226', 64101, 5),
+	(11, '91.187.88.8', 64101, 5),
+	(12, '94.137.50.114', 55788, 5);
 /*!40000 ALTER TABLE `proxies` ENABLE KEYS */;
 
 

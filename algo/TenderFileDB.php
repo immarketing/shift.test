@@ -32,17 +32,29 @@ class TenderFileDB
         return $this;
     }
 
+    public function isTenderIDExists ($tID){
+        if (array_key_exists ($tID, $this->tenders)) {
+            return $this->tenders[$tID];
+        } else {
+            return null;
+        }
+    }
+
     private function updateTenders (){
         unset ($this->tenders);
+        $this->tenders = array();
         if (!$this->elements) {
             return;
         }
         foreach ($this->elements as $key => $element){
             if ($element) {
-                $tendersOfElement = $element['tenders'];
-                foreach ($tendersOfElement as $tenderID => &$tenderInfo) {
-                    if (!$this->tenders[$tenderID])
-                    $this->tenders[$tenderID] = $tenderInfo;
+                $tendersOfElement = &$element['tenders'];
+                if ($tendersOfElement) foreach ($tendersOfElement as $tenderID => &$tenderInfo) {
+                    if (! array_key_exists  ($tenderID, $this->tenders)) {
+                        $this->tenders[$tenderID] = $tenderInfo;
+
+                    }
+
                 }
             };
 
@@ -50,12 +62,20 @@ class TenderFileDB
 
     }
 
+    public function gotNewTender ($tFileName,$qID){
+        if (! array_key_exists ($qID, $this->tenders) ) {
+            $this->tenders[$qID] = array('fileName'=>$qID.'.html','id'=>$qID,'path'=>$tFileName);
+            krsort ($this->queries);
+        }
+        return $this;
+    }
+
     public function gotNewQuery ($qFileName,$qText, $qDt, $qNm){
         $queryFileName = $qFileName;
         $entryQueryID = $qDt.'_'.$qNm;
 
-        if (!$this->queries[$entryQueryID]) {
-            $queries[$entryQueryID] = array('fileName'=>$qNm.'.html','id'=>$entryQueryID,'path'=>$queryFileName);
+        if (! array_key_exists ($entryQueryID, $this->queries) ) {
+            $this->queries[$entryQueryID] = array('fileName'=>$qNm.'.html','id'=>$entryQueryID,'path'=>$queryFileName);
             krsort ($this->queries);
         }
         return $this;
@@ -81,9 +101,10 @@ class TenderFileDB
                      *
                      */
                     $fullDir = $fromDir.'\\'.$entry;
-                    unset ($tenders);
                     if (is_dir($fullDir)) {
                         // нашли директорию с запросами и тендерами
+                        unset ($tenders);
+                        $tenders = array();
                         if ($handleQueries = opendir($fullDir)) {
                             while (false !== ($entryQuery = readdir($handleQueries))) {
                                 if (!is_dir($fullDir.'\\'.$entryQuery)) if ($entryQuery != "." && $entryQuery != "..") {
@@ -115,7 +136,9 @@ class TenderFileDB
                             closedir($handleTenders);
 
                         }
-                        $elements[$entry]=array ('date'=>$entry,'path'=>$fullDir, 'tenders'=>$tenders);
+                        if ($tenders || true) {
+                            $elements[$entry]=array ('date'=>$entry,'path'=>$fullDir, 'tenders'=>$tenders);
+                        }
                     }
                 }
             }

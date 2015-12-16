@@ -31,7 +31,7 @@ function rereadProxies (){
         $rst = $dbc->query('select HOSTNAME, PORT, PHPPROXYTYPE from proxies');
         if ($rst) {
             while ($row = $rst->fetch_assoc()) {
-                $dbp = array($row[PHPPROXYTYPE],$row[PORT],$row[HOSTNAME]);
+                $dbp = array($row['PHPPROXYTYPE'],$row['PORT'],$row['HOSTNAME']);
                 $dbProxies[]= &$dbp;
                 //echo " id = " . $row['id'] . "\n";
             }
