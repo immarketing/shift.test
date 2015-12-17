@@ -397,9 +397,12 @@ class ZakupkiGovRu
 
 
         if ($this->isHandleFinishedByDates()) {
-            $dirToSaveTo = '.\\datas\\zakupki.gov\\finished';
+            // $dirToSaveTo = '.\\datas\\zakupki.gov\\finished';
+            $dirToSaveTo = './datas/zakupki.gov/finished';
+
         } else {
-            $dirToSaveTo = '.\\datas\\zakupki.gov\\' . $cDateFmt;
+            //$dirToSaveTo = '.\\datas\\zakupki.gov\\' . $cDateFmt;
+            $dirToSaveTo = './datas/zakupki.gov/' . $cDateFmt;
             $url = self::$STARTPAGE;
         }
         $this->tendersFileDB->setStartDir($dirToSaveTo);
@@ -412,15 +415,15 @@ class ZakupkiGovRu
                 for ($i = 1; $i <= 100; $i++) {
                     if ($this->isHandleFinishedByDates()) {
                         $cDateFmt = date('Ymd', $cDate[0] - $days * 60 * 60 * 24); // дата изменения процедуры, с которой работаем
-                        $dirToSaveTo1 = $dirToSaveTo . '\\' . $cDateFmt;
+                        $dirToSaveTo1 = $dirToSaveTo . '/' . $cDateFmt;
                         timeStampedEcho("[v1]" . "\t[" . $days . "]\t[" . $cDateFmt . "]\t[" . $i . "]\t\n");
                         if (!is_dir($dirToSaveTo1)) mkdir($dirToSaveTo1, 0700, true);
                         // '.\\datas\\zakupki.gov\\tenders\\'
-                        $this->setStoreTenderFilesInDir($dirToSaveTo1 . '\\tenders\\');
+                        $this->setStoreTenderFilesInDir($dirToSaveTo1 . '/tenders/');
                         if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
                         $url = self::$STARTPAGEFINISHED[0] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[1] . date('d.m.Y', $cDate[0] - $days * 60 * 60 * 24) . self::$STARTPAGEFINISHED[2] . $i . self::$STARTPAGEFINISHED[3];
                         //$startPageText = $this->loadPage($url, $dirToSaveTo1 . '\\' . $i . '.html');
-                        $startPageText = $this->loadQuery($url, $dirToSaveTo1 . '\\' . $i . '.html',$cDateFmt,$i);
+                        $startPageText = $this->loadQuery($url, $dirToSaveTo1 . '/' . $i . '.html',$cDateFmt,$i);
                         $this->workOutPage($startPageText[0], $startPageText[1], $url);
                     } else {
                         //$startPageText = $this->loadPage($url, $dirToSaveTo.'\\0.html');
@@ -433,9 +436,9 @@ class ZakupkiGovRu
                         $url = $url1 . $i . $url2;
                         //timeStampedEcho($url . "\n");
                         timeStampedEcho("[v2]" . "\t[" . $i . "]\t\n");
-                        $this->setStoreTenderFilesInDir($dirToSaveTo . '\\tenders\\');
+                        $this->setStoreTenderFilesInDir($dirToSaveTo . '/tenders/');
                         if (!is_dir($this->getStoreTenderFilesInDir())) mkdir($this->getStoreTenderFilesInDir(), 0700, true);
-                        $pageText = $this->loadPage($url, $dirToSaveTo . '\\' . $i . '.html');
+                        $pageText = $this->loadPage($url, $dirToSaveTo . '/' . $i . '.html');
                         $this->workOutPage($pageText[0], $pageText[1], $url);
                     }
                 }
@@ -552,7 +555,7 @@ class ZakupkiGovRu
      */
     private function loadStartPage1()
     {
-        return $this->loadPage(self::$STARTPAGE, '.\\datas\\zakupki.gov\\0.html');
+        return $this->loadPage(self::$STARTPAGE, './datas/zakupki.gov/0.html');
     }
 
     /*

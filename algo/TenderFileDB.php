@@ -100,33 +100,33 @@ class TenderFileDB
                      * Должны быть директории с датами изменения процедур
                      *
                      */
-                    $fullDir = $fromDir.'\\'.$entry;
+                    $fullDir = $fromDir.'/'.$entry;
                     if (is_dir($fullDir)) {
                         // нашли директорию с запросами и тендерами
                         unset ($tenders);
                         $tenders = array();
                         if ($handleQueries = opendir($fullDir)) {
                             while (false !== ($entryQuery = readdir($handleQueries))) {
-                                if (!is_dir($fullDir.'\\'.$entryQuery)) if ($entryQuery != "." && $entryQuery != "..") {
+                                if (!is_dir($fullDir.'/'.$entryQuery)) if ($entryQuery != "." && $entryQuery != "..") {
                                     /*
                                      * пропускаем директории
                                      * файлы с запросами
                                      */
-                                    $queryFileName = $fullDir.'\\'.$entryQuery;
+                                    $queryFileName = $fullDir.'/'.$entryQuery;
                                     $entryQueryID = $entry.'_'.preg_replace('/.html$/', '', $entryQuery);
                                     $queries[$entryQueryID] = array('fileName'=>$entryQuery,'id'=>$entryQueryID,'path'=>$queryFileName);
                                 }
                             }
                             closedir($handleQueries);
                         }
-                        if ($handleTenders = opendir($fullDir.'\\tenders')) {
+                        if ($handleTenders = opendir($fullDir.'/tenders')) {
                             // считываем тендера
                             while (false !== ($entryTender = readdir($handleTenders))) {
                                 if ($entryTender != "." && $entryTender != "..") {
                                     /*
                                      * файлы с тендерами
                                      */
-                                    $tenderFileName = $fullDir.'\\tenders\\'.$entryTender;
+                                    $tenderFileName = $fullDir.'/tenders/'.$entryTender;
                                     $entryTenderID = preg_replace('/.html$/', '', $entryTender);
                                     $tenders[$entryTenderID] = array('fileName'=>$entryTender,'id'=>$entryTenderID,'path'=>$tenderFileName);
 
