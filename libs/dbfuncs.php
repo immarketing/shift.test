@@ -18,8 +18,6 @@ function touchDB($mysqli){
         }
         unset ($mysqli);
         $mysqli = connectDB();
-    } finally {
-
     }
     return $mysqli;
 }

@@ -6,13 +6,13 @@
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Дамп структуры базы данных db_shift
-DROP DATABASE IF EXISTS `db_shift`;
-CREATE DATABASE IF NOT EXISTS `db_shift` /*!40100 DEFAULT CHARACTER SET utf8 */;
+-- DROP DATABASE IF EXISTS `db_shift`;
+-- CREATE DATABASE IF NOT EXISTS `db_shift` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `db_shift`;
 
 
