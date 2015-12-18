@@ -52,6 +52,7 @@ function rereadProxies (){
  */
 function create_curl() {
     //http://hideme.ru/proxy-list/?type=5
+    //http://50na50.net/ru/proxy/socks5list
     static $GlobalCURLProxies = array ();
     static $GlobalCURLProxiesCurrentIndex = 0;
 
